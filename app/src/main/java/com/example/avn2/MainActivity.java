@@ -20,8 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.map_button) {
-//            Intent i = new Intent(MainActivity.this, MapsActivity.class);
-//            startActivity(i);
+            Intent i = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(i);
         }
     }
 }

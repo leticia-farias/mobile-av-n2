@@ -13,14 +13,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button mapButton = findViewById(R.id.map_button);
         mapButton.setOnClickListener(this);
+
+        Button configButton = findViewById(R.id.config_button);
+        configButton.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.map_button) {
             Intent i = new Intent(MainActivity.this, MapsActivity.class);
+            startActivity(i);
+        }
+        if (view.getId() == R.id.config_button) {
+            Intent i = new Intent(MainActivity.this, ConfigActivity.class);
             startActivity(i);
         }
     }

@@ -2,4 +2,11 @@
     <string name="app_name">AV N2</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="btn_maps_activity_txt">Google Maps Activity</string>
+    <string name="btn_config_activity_txt">Configurações</string>
+    <string name="btn_radio_fem_txt">Feminino</string>
+    <string name="btn_radio_masc_txt">Masculino</string>
+    <string name="tv_peso_txt">Peso</string>
+    <string name="tv_altura_txt">Altura</string>
+    <string name="tv_nascimento_txt">Data de nascimento</string>
+    <string name="tv_genero_txt">Gênero</string>
 </resources>

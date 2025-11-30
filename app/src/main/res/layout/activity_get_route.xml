@@ -5,35 +5,41 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".GetRouteActivity">
 
     <Button
-        android:id="@+id/map_button"
+        android:id="@+id/StopGetRouteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_maps_activity_txt"
+        android:backgroundTint="#00FFFFFF"
+        android:text="@string/btn_stop_txt"
+        android:textColor="#ff6750a4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.98"
+        app:strokeColor="#ff6750a4"
+        app:strokeWidth="1dp" />
 
     <Button
-        android:id="@+id/config_button"
+        android:id="@+id/StartGetRouteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_config_activity_txt"
+        android:text="@string/btn_start_txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias=".98" />
 
-    <Button
-        android:id="@+id/obter_trilha_button"
+    <TextView
+        android:id="@+id/logTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_obter_trilha_txt"
+        android:text="@string/tv_log_txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

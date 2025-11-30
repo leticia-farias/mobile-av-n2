@@ -151,6 +151,7 @@
             android:id="@+id/radioButtonVetorial"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/btn_radio_north_txt" />
 
         <RadioButton
@@ -190,6 +191,7 @@
             android:id="@+id/radioButtonNorth"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/btn_radio_vetorial_txt" />
 
         <RadioButton

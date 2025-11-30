@@ -9,4 +9,12 @@
     <string name="tv_altura_txt">Altura</string>
     <string name="tv_nascimento_txt">Data de nascimento</string>
     <string name="tv_genero_txt">Gênero</string>
+    <string name="tv_mapa_txt">Mapa</string>
+    <string name="btn_radio_vetorial_txt">Vetorial</string>
+    <string name="btn_radio_satelite_txt">Satélite</string>
+    <string name="btn_radio_north_txt">North Up</string>
+    <string name="btn_radio_course_txt">Course Up</string>
+    <string name="tv_navegacao_txt">Navegação</string>
+    <string name="btn_salvar_txt">Salvar</string>
+    <string name="btn_cancelar_txt">Cancelar</string>
 </resources>

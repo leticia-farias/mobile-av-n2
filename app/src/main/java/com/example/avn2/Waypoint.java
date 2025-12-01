@@ -6,7 +6,7 @@ public class Waypoint {
     private long id;
     private double latitude, longitude, altitude;
 
-    public Waypoint(long id, double latitude, double longitude, double altitude) {
+    public Waypoint() {
         this.id = 0;
         this.latitude = 0.0;
         this.longitude = 0.0;
@@ -20,9 +20,13 @@ public class Waypoint {
         this.altitude = location.getAltitude();
     }
 
-    public Waypoint() {
-
+    public Waypoint(long id, double latitude, double longitude, double altitude) {
+        this.id = id;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
     }
+
 
     public long getId() {
         return id;

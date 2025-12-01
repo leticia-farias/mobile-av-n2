@@ -2,6 +2,8 @@ package com.example.avn2;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,10 +44,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        SharedPreferences preferences = getSharedPreferences("My preferences", Context.MODE_PRIVATE);
+
+        // usaria aq (no metodo na vdd, mas como n tava indo fui testar direto
+        int idMapa = preferences.getInt("mapa", 1);
+        mMap.setMapType(idMapa);
+        //configurarPreferencias(mMap);
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    private void configurarPreferencias(GoogleMap googleMap) {
+        SharedPreferences preferences = getSharedPreferences("My preferences", Context.MODE_PRIVATE);
+
+        int idMapa = preferences.getInt("mapa", 2);
+        mMap.setMapType(idMapa);
+//        if (idMapa == 1) {
+//        } else if (idMapa == 2) {
+//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+//        }
+
+//        int idNavegagacao = preferences.getInt("navegacao", 1);
+//        if (idMapa == 1) {
+//            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+//        } else if (idMapa == 2) {
+//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+//        }
+
+
     }
 }

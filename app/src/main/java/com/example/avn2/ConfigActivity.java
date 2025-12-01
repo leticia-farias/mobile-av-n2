@@ -45,11 +45,16 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
 
         rgMapa = findViewById(R.id.radioGroupMapa);
         mapaDefault = findViewById(R.id.radioButtonVetorial);
-        rgMapa.check(sharedPreferences.getInt("mapa", mapaDefault.getId()));
+
+        // esse id não é 0, 1 etc como pensei, é um número aleatório tipo 2144419
+        // se fosse 1 ou 2 eu pensei em usar no MapsActivity
+        int teste = sharedPreferences.getInt("mapa", mapaDefault.getId());
+        rgMapa.check(teste);
 
         rgNavegacao = findViewById(R.id.radioGroupNavegacao);
         navegacaoDefault = findViewById(R.id.radioButtonNorth);
-        rgNavegacao.check(sharedPreferences.getInt("navegacao", navegacaoDefault.getId()));
+        navegacaoDefault.setChecked(true);
+        rgNavegacao.check(sharedPreferences.getInt("navegacao", rgNavegacao.getCheckedRadioButtonId()));
 
         btnCancelar = findViewById(R.id.buttonConfigCancelar);
         btnCancelar.setOnClickListener(this);
@@ -67,7 +72,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
             String alturaNoComponente = etAltura.getText().toString();
             String nascimentoNoComponente = etNascimento.getText().toString();
             int generoSelecionado = rgGenero.getCheckedRadioButtonId();
-            int mapaSelecionado = rgMapa.getCheckedRadioButtonId();
+            int mapaSelecionado = rgMapa.get;
             int navegacaoSelecionada = rgNavegacao.getCheckedRadioButtonId();
 
             sharedPreferencesEditor.putString("peso", pesoNoComponente);

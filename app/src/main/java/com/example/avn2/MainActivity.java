@@ -36,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button obterTrilhaButton = findViewById(R.id.obter_trilha_button);
         obterTrilhaButton.setOnClickListener(this);
+
+        Button creditosButton = findViewById(R.id.btn_creditos);
+        creditosButton.setOnClickListener(this);
     }
 
     @Override
@@ -50,6 +53,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (view.getId() == R.id.obter_trilha_button) {
             Intent i = new Intent(MainActivity.this, GetRouteActivity.class);
+            startActivity(i);
+        }
+        if (view.getId() == R.id.btn_creditos) {
+            Intent i = new Intent(MainActivity.this, CreditosActivity.class);
             startActivity(i);
         }
     }

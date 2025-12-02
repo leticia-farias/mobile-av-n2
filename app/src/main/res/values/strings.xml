@@ -21,4 +21,5 @@
     <string name="btn_stop_txt">Stop</string>
     <string name="tv_log_txt">Nada no banco</string>
     <string name="btn_obter_trilha_txt">Obter Trilha</string>
+    <string name="btn_creditos_txt">Créditos</string>
 </resources>

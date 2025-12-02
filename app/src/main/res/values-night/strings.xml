@@ -14,4 +14,11 @@
     <string name="btn_radio_north_txt">North Up</string>
     <string name="btn_radio_course_txt">Course Up</string>
     <string name="tv_navegacao_txt">Navegação</string>
+    <string name="btn_salvar_txt">Salvar</string>
+    <string name="btn_cancelar_txt">Cancelar</string>
+    <string name="btn_start_txt">Start</string>
+    <string name="btn_stop_txt">Stop</string>
+    <string name="tv_log_txt">Nada no banco</string>
+    <string name="btn_obter_trilha_txt">Obter Trilha</string>
+    <string name="btn_creditos_txt">Créditos</string>
 </resources>

@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AVN2">
         <activity
+            android:name=".CreditosActivity"
+            android:exported="false" />
+        <activity
             android:name=".GetRouteActivity"
             android:exported="false" />
         <activity

@@ -8,15 +8,15 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/map_button"
+        android:id="@+id/consultar_trilha_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_maps_activity_txt"
+        android:text="@string/btn_consultar_trilha_txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.55" />
 
     <Button
         android:id="@+id/config_button"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4" />
+        app:layout_constraintVertical_bias="0.35" />
 
     <Button
         android:id="@+id/obter_trilha_button"
@@ -37,7 +37,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.45" />
 
     <Button
         android:id="@+id/btn_creditos"
@@ -46,9 +47,9 @@
         android:text="@string/btn_creditos_txt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.692" />
+        app:layout_constraintVertical_bias=".65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

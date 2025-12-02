@@ -18,6 +18,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginBottom="24dp"
+            android:background="#ff6750a4"
             android:contentDescription="Imagem do App"
             android:src="@drawable/ic_launcher_foreground" />
 
@@ -51,12 +52,13 @@
             android:text="SOBRE O PROJETO"
             android:textStyle="bold"
             android:gravity="center"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
             android:gravity="center"
-            android:text="XXXX"
-            android:layout_marginBottom="24dp"/>
+            android:text="@string/tv_descricao_projeto_txt" />
 
 
         <TextView

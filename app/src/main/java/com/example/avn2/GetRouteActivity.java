@@ -294,6 +294,6 @@ public class GetRouteActivity extends AppCompatActivity implements OnMapReadyCal
             Toast.makeText(this, "Erro ao salvar trilha.", Toast.LENGTH_SHORT).show();
         }
 
-        finish(); // Fecha a tela e volta pro menu
+        finish();
     }
 }

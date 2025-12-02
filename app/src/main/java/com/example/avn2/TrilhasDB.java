@@ -115,9 +115,32 @@ public class TrilhasDB extends SQLiteOpenHelper {
         return waypoints;
     }
 
-    // Método auxiliar para limpar tudo (útil para testes)*
+    //* Método auxiliar para limpar tudo (útil para testes)
     public void apagarTudo() {
         getWritableDatabase().execSQL("DELETE FROM " + TABLE_WAYPOINTS);
         getWritableDatabase().execSQL("DELETE FROM " + TABLE_TRILHAS);
     }
+    public void excluirTrilha(long idTrilha) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("waypoints", "id_trilha = ?", new String[]{String.valueOf(idTrilha)});
+        db.delete("trilhas", "_id = ?", new String[]{String.valueOf(idTrilha)});
+    }
+    // Primeiro remove os waypoints vinculados para não ficar lixo no banco
+    // Depois remove a trilha
+
+    public void renomearTrilha(long idTrilha, String novoNome) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("nome", novoNome);
+        db.update("trilhas", values, "_id = ?", new String[]{String.valueOf(idTrilha)});
+    }
+
+    public void excluirTodasTrilhas() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("waypoints", null, null);
+        db.delete("trilhas", null, null);
+    }
+
+
+
 }

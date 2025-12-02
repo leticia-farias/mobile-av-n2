@@ -21,4 +21,5 @@
     <string name="tv_log_txt">Nada no banco</string>
     <string name="btn_obter_trilha_txt">Obter Trilha</string>
     <string name="btn_creditos_txt">Créditos</string>
+    <string name="tv_descricao_projeto_txt">Este aplicativo foi desenvolvido para o gerenciamento de trilhas em dispositivos móveis. Ele permite o monitoramento de percursos via GPS, cálculo de velocidade, distância e gasto calórico, além de permitir a visualização e histórico de trilhas realizadas.</string>
 </resources>

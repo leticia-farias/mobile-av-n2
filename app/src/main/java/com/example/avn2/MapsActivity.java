@@ -44,12 +44,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        SharedPreferences preferences = getSharedPreferences("My preferences", Context.MODE_PRIVATE);
 
-        // usaria aq (no metodo na vdd, mas como n tava indo fui testar direto
-        int idMapa = preferences.getInt("mapa", 1);
-        mMap.setMapType(idMapa);
-        //configurarPreferencias(mMap);
+        configurarPreferencias(mMap);
 
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
@@ -58,22 +54,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void configurarPreferencias(GoogleMap googleMap) {
+        mMap = googleMap;
         SharedPreferences preferences = getSharedPreferences("My preferences", Context.MODE_PRIVATE);
 
-        int idMapa = preferences.getInt("mapa", 2);
-        mMap.setMapType(idMapa);
-//        if (idMapa == 1) {
-//        } else if (idMapa == 2) {
-//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//        }
+        int mapaSalvo = preferences.getInt("mapa", R.id.radioButtonVetorial);
 
-//        int idNavegagacao = preferences.getInt("navegacao", 1);
-//        if (idMapa == 1) {
-//            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-//        } else if (idMapa == 2) {
-//            mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-//        }
-
-
+        if (mapaSalvo == R.id.radioButtonVetorial) mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        if (mapaSalvo == R.id.radioButtonSatelite) mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
     }
 }

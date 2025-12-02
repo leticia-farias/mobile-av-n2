@@ -126,46 +126,6 @@
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:text="@string/tv_mapa_txt"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroupNavegacao"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <RadioGroup
-        android:id="@+id/radioGroupMapa"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:clipToPadding="false"
-        android:gravity="start"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72">
-
-        <RadioButton
-            android:id="@+id/radioButtonVetorial"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="@string/btn_radio_north_txt" />
-
-        <RadioButton
-            android:id="@+id/radioButtonSatelite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_radio_course_txt" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/textViewNavegacao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_navegacao_txt"
         app:layout_constraintBottom_toTopOf="@+id/radioGroupMapa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -185,17 +145,57 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6">
+        app:layout_constraintVertical_bias="0.72">
 
         <RadioButton
             android:id="@+id/radioButtonNorth"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/btn_radio_vetorial_txt" />
+            android:text="@string/btn_radio_north_txt" />
 
         <RadioButton
             android:id="@+id/radioButtonCourse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_radio_course_txt" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textViewNavegacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_navegacao_txt"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroupNavegacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupMapa"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:gravity="start"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6">
+
+        <RadioButton
+            android:id="@+id/radioButtonVetorial"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/btn_radio_vetorial_txt" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSatelite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_radio_satelite_txt" />

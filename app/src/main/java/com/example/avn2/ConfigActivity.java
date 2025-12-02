@@ -9,18 +9,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class ConfigActivity extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedPreferencesEditor;
     EditText etPeso, etAltura, etNascimento;
     RadioGroup rgGenero, rgMapa, rgNavegacao;
-    RadioButton mapaDefault, navegacaoDefault;
     Button btnCancelar, btnSalvar;
 
     @Override
@@ -44,17 +39,12 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         rgGenero.check(sharedPreferences.getInt("genero", -1));
 
         rgMapa = findViewById(R.id.radioGroupMapa);
-        mapaDefault = findViewById(R.id.radioButtonVetorial);
-
-        // esse id não é 0, 1 etc como pensei, é um número aleatório tipo 2144419
-        // se fosse 1 ou 2 eu pensei em usar no MapsActivity
-        int teste = sharedPreferences.getInt("mapa", mapaDefault.getId());
-        rgMapa.check(teste);
+        rgMapa.check(sharedPreferences.getInt("mapa", R.id.radioButtonVetorial));
+//        RadioButton mapaDefault = findViewById(R.id.radioButtonVetorial);
+//        rgMapa.check(mapaDefault.getId());
 
         rgNavegacao = findViewById(R.id.radioGroupNavegacao);
-        navegacaoDefault = findViewById(R.id.radioButtonNorth);
-        navegacaoDefault.setChecked(true);
-        rgNavegacao.check(sharedPreferences.getInt("navegacao", rgNavegacao.getCheckedRadioButtonId()));
+        rgNavegacao.check(sharedPreferences.getInt("navegacao", R.id.radioButtonNorth));
 
         btnCancelar = findViewById(R.id.buttonConfigCancelar);
         btnCancelar.setOnClickListener(this);
@@ -65,14 +55,12 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.buttonConfigCancelar) {
-            finish();
-        } else if (v.getId() == R.id.buttonConfigSalvar) {
+        if (v.getId() == R.id.buttonConfigSalvar) {
             String pesoNoComponente = etPeso.getText().toString();
             String alturaNoComponente = etAltura.getText().toString();
             String nascimentoNoComponente = etNascimento.getText().toString();
             int generoSelecionado = rgGenero.getCheckedRadioButtonId();
-            int mapaSelecionado = rgMapa.get;
+            int mapaSelecionado = rgMapa.getCheckedRadioButtonId();
             int navegacaoSelecionada = rgNavegacao.getCheckedRadioButtonId();
 
             sharedPreferencesEditor.putString("peso", pesoNoComponente);
@@ -82,9 +70,11 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
             sharedPreferencesEditor.putInt("mapa", mapaSelecionado);
             sharedPreferencesEditor.putInt("navegacao", navegacaoSelecionada);
 
-            sharedPreferencesEditor.apply();
+            sharedPreferencesEditor.commit();
+            finish();
+        }
+        if (v.getId() == R.id.buttonConfigCancelar) {
             finish();
         }
     }
-
 }

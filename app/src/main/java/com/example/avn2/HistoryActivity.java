@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +23,7 @@ public class HistoryActivity extends AppCompatActivity {
     List<TrilhaModelo> listaTrilhas;
     TrilhasDB trilhasDB;
     TextView tvEmpty;
+    Button btnLimpar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,9 @@ public class HistoryActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        btnLimpar = findViewById(R.id.btnLimparHistorico);
+        btnLimpar.setOnClickListener(v -> confirmarExclusaoGeral());
+
         carregarDados();
     }
 
@@ -41,6 +49,18 @@ public class HistoryActivity extends AppCompatActivity {
         carregarDados();
     }
 
+    private void confirmarExclusaoGeral() {
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar Tudo")
+                .setMessage("Tem certeza que deseja apagar todas as trilhas do histórico?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+                    trilhasDB.excluirTodasTrilhas();
+                    Toast.makeText(this, "Histórico limpo!", Toast.LENGTH_SHORT).show();
+                    carregarDados();
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
     private void carregarDados() {
         listaTrilhas = new ArrayList<>();
         Cursor cursor = trilhasDB.buscarTodasTrilhas(); // Consulta as Trilhas

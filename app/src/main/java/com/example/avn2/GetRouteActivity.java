@@ -145,6 +145,15 @@ public class GetRouteActivity extends AppCompatActivity implements OnMapReadyCal
         // Ativa botão de "ir para minha localização" se tiver permissão
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+
+            // move a câmera para a localização atual
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, location -> {
+                        if (location != null) {
+                            LatLng atual = new LatLng(location.getLatitude(), location.getLongitude());
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(atual, 15));
+                        }
+                    });
         }
     }
 

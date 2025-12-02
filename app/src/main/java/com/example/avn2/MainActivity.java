@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             System.out.println(e.getMessage());
         }
 
-        Button mapButton = findViewById(R.id.map_button);
-        mapButton.setOnClickListener(this);
+        Button consultarTrilhaButton = findViewById(R.id.consultar_trilha_button);
+        consultarTrilhaButton.setOnClickListener(this);
 
         Button configButton = findViewById(R.id.config_button);
         configButton.setOnClickListener(this);
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.map_button) {
+        if (view.getId() == R.id.consultar_trilha_button) {
             Intent i = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(i);
         }

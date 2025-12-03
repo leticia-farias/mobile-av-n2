@@ -141,6 +141,8 @@ public class TrilhasDB extends SQLiteOpenHelper {
         db.delete("trilhas", null, null);
     }
 
-
-
+    public Cursor buscarTrilhaPorId(long idTrilha) {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.query("trilhas", null, "_id = ?", new String[]{String.valueOf(idTrilha)}, null, null, null);
+    }
 }

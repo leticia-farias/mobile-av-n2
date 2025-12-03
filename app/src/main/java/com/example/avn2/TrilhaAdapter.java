@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class TrilhaAdapter extends RecyclerView.Adapter<TrilhaAdapter.TrilhaViewHolder> {
@@ -67,16 +72,48 @@ public class TrilhaAdapter extends RecyclerView.Adapter<TrilhaAdapter.TrilhaView
 
         // Parte de compartilhar
         holder.btnCompartilhar.setOnClickListener(v -> {
-            String textoShare = "Confira minha trilha!\n" +
-                    "Nome: " + trilha.getNome() + "\n" +
-                    "Data: " + trilha.getDataInicio() + "\n" +
-                    "Distância: " + String.format("%.2f km", trilha.getDistancia() / 1000);
+            Cursor cursor = db.buscarTrilhaPorId(trilha.getId());
+            if (cursor != null && cursor.moveToFirst()) {
+                try {
+                    // 1. Cria o objeto JSON com os dados da Trilha
+                    JSONObject json = new JSONObject();
+                    json.put("nome", cursor.getString(cursor.getColumnIndexOrThrow("nome")));
+                    json.put("data_inicio", cursor.getString(cursor.getColumnIndexOrThrow("data_inicio")));
+                    json.put("data_fim", cursor.getString(cursor.getColumnIndexOrThrow("data_fim")));
+                    json.put("distancia_total", cursor.getDouble(cursor.getColumnIndexOrThrow("distancia_total")));
+                    json.put("tempo_duracao", cursor.getLong(cursor.getColumnIndexOrThrow("tempo_duracao")));
+                    json.put("velocidade_media", cursor.getDouble(cursor.getColumnIndexOrThrow("velocidade_media")));
+                    json.put("velocidade_maxima", cursor.getDouble(cursor.getColumnIndexOrThrow("velocidade_maxima")));
+                    json.put("gasto_calorico", cursor.getDouble(cursor.getColumnIndexOrThrow("gasto_calorico")));
 
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, textoShare);
-            sendIntent.setType("text/plain");
-            context.startActivity(Intent.createChooser(sendIntent, "Compartilhar trilha via"));
+                    // 2. Recupera e adiciona os Waypoints (coordenadas)
+                    List<Waypoint> waypoints = db.recuperarWaypointsDaTrilha(trilha.getId());
+                    JSONArray jsonWaypoints = new JSONArray();
+                    for (Waypoint wp : waypoints) {
+                        JSONObject jsonWp = new JSONObject();
+                        jsonWp.put("lat", wp.getLatitude());
+                        jsonWp.put("lng", wp.getLongitude());
+                        jsonWp.put("alt", wp.getAltitude());
+                        jsonWaypoints.put(jsonWp);
+                    }
+                    json.put("caminho", jsonWaypoints);
+
+                    // 3. Envia o texto formatado como JSON
+                    String textoShare = json.toString(2); // Indentação de 2 espaços para ficar legível
+
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, textoShare);
+                    sendIntent.setType("text/plain");
+                    context.startActivity(Intent.createChooser(sendIntent, "Compartilhar Trilha (JSON)"));
+
+                } catch (Exception e) {
+                    Toast.makeText(context, "Erro ao gerar dados para compartilhamento.", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                } finally {
+                    cursor.close();
+                }
+            }
         });
 
         holder.btnExcluir.setOnClickListener(v -> {

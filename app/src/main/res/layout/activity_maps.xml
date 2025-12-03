@@ -1,9 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    tools:context=".MapsActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="32dp"
+        map:cardCornerRadius="16dp"
+        map:cardElevation="10dp"
+        map:cardBackgroundColor="#FFFFFF"
+        map:layout_constraintBottom_toBottomOf="parent"
+        map:layout_constraintStart_toStartOf="parent"
+        map:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalhes da Trilha"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="12dp"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <TextView
+                    android:id="@+id/tvInfoDistancia"
+                    android:text="Distância: -- km"
+                    android:textSize="14sp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:padding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvInfoDuracao"
+                    android:text="Duração: --:--"
+                    android:textSize="14sp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:padding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvInfoVelMedia"
+                    android:text="Vel. Média: -- km/h"
+                    android:textSize="14sp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:padding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvInfoVelMax"
+                    android:text="Vel. Max: -- km/h"
+                    android:textSize="14sp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:padding="4dp"/>
+            </GridLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DDDDDD"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvInfoData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Data: --/--/----"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:textColor="#555555"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

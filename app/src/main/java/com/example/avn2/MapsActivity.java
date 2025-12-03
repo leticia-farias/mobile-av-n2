@@ -4,8 +4,11 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor; // Adicionado
+import android.database.sqlite.SQLiteDatabase; // Adicionado
 import android.graphics.Color;
 import android.os.Bundle;
+import android.widget.TextView; // Adicionado
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -25,12 +28,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private TrilhasDB trilhasDB;
 
+    //  Variáveis para os textos sobrepostos
+    private TextView tvDistancia, tvDuracao, tvVelMedia, tvVelMax, tvData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        tvDistancia = findViewById(R.id.tvInfoDistancia);
+        tvDuracao = findViewById(R.id.tvInfoDuracao);
+        tvVelMedia = findViewById(R.id.tvInfoVelMedia);
+        tvVelMax = findViewById(R.id.tvInfoVelMax);
+        tvData = findViewById(R.id.tvInfoData);
 
         trilhasDB = new TrilhasDB(this);
 
@@ -60,6 +72,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (idTrilha != -1) {
             carregarTrilhaNoMapa(idTrilha);
+            carregarDetalhesTexto(idTrilha);
         } else {
             Toast.makeText(this, "Erro ao carregar trilha.", Toast.LENGTH_SHORT).show();
         }
@@ -105,5 +118,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             Toast.makeText(this, "Esta trilha não possui pontos gravados.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    // Metodo para buscar dados e preencher o CardView
+    private void carregarDetalhesTexto(long idTrilha) {
+        SQLiteDatabase db = trilhasDB.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM trilhas WHERE _id = ?", new String[]{String.valueOf(idTrilha)});
+
+        if (cursor.moveToFirst()) {
+            double distMetros = cursor.getDouble(cursor.getColumnIndexOrThrow("distancia_total"));
+            long tempoMs = cursor.getLong(cursor.getColumnIndexOrThrow("tempo_duracao"));
+            double velMedia = cursor.getDouble(cursor.getColumnIndexOrThrow("velocidade_media"));
+            double velMax = cursor.getDouble(cursor.getColumnIndexOrThrow("velocidade_maxima"));
+            String dataInicio = cursor.getString(cursor.getColumnIndexOrThrow("data_inicio"));
+
+            // Conversões
+            double distKm = distMetros / 1000.0;
+            long segundosTotal = tempoMs / 1000;
+            long minutos = (segundosTotal / 60) % 60;
+            long horas = segundosTotal / 3600;
+
+            // Sets
+            tvDistancia.setText(String.format("Distância: %.2f km", distKm));
+            tvVelMedia.setText(String.format("Vel. Média: %.1f km/h", velMedia));
+            tvVelMax.setText(String.format("Vel. Max: %.1f km/h", velMax));
+            tvData.setText("Data: " + dataInicio);
+
+            if (horas > 0) {
+                tvDuracao.setText(String.format("Duração: %02d:%02d:%02d", horas, minutos, segundosTotal % 60));
+            } else {
+                tvDuracao.setText(String.format("Duração: %02d:%02d", minutos, segundosTotal % 60));
+            }
+        }
+        cursor.close();
     }
 }

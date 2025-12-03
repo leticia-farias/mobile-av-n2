@@ -1,5 +1,6 @@
 package com.example.avn2;
 
+import android.app.DatePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class HistoryActivity extends AppCompatActivity {
 
@@ -24,6 +27,7 @@ public class HistoryActivity extends AppCompatActivity {
     TrilhasDB trilhasDB;
     TextView tvEmpty;
     Button btnLimpar;
+    Button btnApagarIntervalo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,9 @@ public class HistoryActivity extends AppCompatActivity {
 
         btnLimpar = findViewById(R.id.btnLimparHistorico);
         btnLimpar.setOnClickListener(v -> confirmarExclusaoGeral());
+
+        btnApagarIntervalo = findViewById(R.id.btnApagarIntervalo);
+        btnApagarIntervalo.setOnClickListener(v -> mostrarSeletorDeIntervalo());
 
         carregarDados();
     }
@@ -59,6 +66,63 @@ public class HistoryActivity extends AppCompatActivity {
                     carregarDados();
                 })
                 .setNegativeButton("Não", null)
+                .show();
+    }
+
+    private void mostrarSeletorDeIntervalo() {
+        final Calendar c = Calendar.getInstance();
+        int ano = c.get(Calendar.YEAR);
+        int mes = c.get(Calendar.MONTH);
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+
+        // 1. Escolher Data INICIAL
+        DatePickerDialog datePickerInicio = new DatePickerDialog(this,
+                (view, year1, month1, dayOfMonth1) -> {
+                    // Formata para YYYY-MM-DD (para o DB)
+                    String dataInicioFormatada = String.format(Locale.getDefault(), "%04d-%02d-%02d", year1, month1 + 1, dayOfMonth1);
+
+                    // Após escolher a primeira, abre logo o seletor da segunda
+                    escolherDataFinal(dataInicioFormatada);
+
+                }, ano, mes, dia);
+
+        datePickerInicio.setTitle("Selecione a Data INICIAL");
+        datePickerInicio.show();
+    }
+
+    private void escolherDataFinal(String dataInicio) {
+        final Calendar c = Calendar.getInstance();
+        int ano = c.get(Calendar.YEAR);
+        int mes = c.get(Calendar.MONTH);
+        int dia = c.get(Calendar.DAY_OF_MONTH);
+
+        // 2. Escolher Data FINAL
+        DatePickerDialog datePickerFim = new DatePickerDialog(this,
+                (view, year2, month2, dayOfMonth2) -> {
+                    // Formata para YYYY-MM-DD
+                    String dataFimFormatada = String.format(Locale.getDefault(), "%04d-%02d-%02d", year2, month2 + 1, dayOfMonth2);
+
+                    confirmarExclusaoIntervalo(dataInicio, dataFimFormatada);
+
+                }, ano, mes, dia);
+
+        datePickerFim.setTitle("Selecione a Data FINAL");
+        datePickerFim.show();
+    }
+
+    private void confirmarExclusaoIntervalo(String dataInicio, String dataFim) {
+        new AlertDialog.Builder(this)
+                .setTitle("Apagar Intervalo")
+                .setMessage("Deseja apagar as trilhas entre " + dataInicio + " e " + dataFim + "?")
+                .setPositiveButton("Sim", (dialog, which) -> {
+
+                    // Chama o método do banco
+                    trilhasDB.excluirTrilhasPorIntervalo(dataInicio, dataFim);
+
+                    Toast.makeText(this, "Trilhas apagadas!", Toast.LENGTH_SHORT).show();
+                    carregarDados(); // Atualiza a lista na tela
+                })
+                .setNegativeButton("Cancelar", null)
                 .show();
     }
     private void carregarDados() {

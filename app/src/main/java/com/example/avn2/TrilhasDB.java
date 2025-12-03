@@ -141,6 +141,21 @@ public class TrilhasDB extends SQLiteOpenHelper {
         db.delete("trilhas", null, null);
     }
 
+    public void excluirTrilhasPorIntervalo(String dataInicio, String dataFim) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        String whereClause =
+                "(substr(data_inicio, 7, 4) || '-' || substr(data_inicio, 4, 2) || '-' || substr(data_inicio, 1, 2)) " +
+                        "BETWEEN ? AND ?";
+
+        String[] whereArgs = { dataInicio, dataFim };
+
+        db.execSQL("DELETE FROM " + "waypoints" + " WHERE id_trilha IN " +
+                "(SELECT _id FROM " + "trilhas" + " WHERE " + whereClause + ")", whereArgs);
+
+        db.delete("trilhas", whereClause, whereArgs);
+    }
+
     public Cursor buscarTrilhaPorId(long idTrilha) {
         SQLiteDatabase db = getReadableDatabase();
         return db.query("trilhas", null, "_id = ?", new String[]{String.valueOf(idTrilha)}, null, null, null);
